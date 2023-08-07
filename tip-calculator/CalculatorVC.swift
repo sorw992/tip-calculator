@@ -22,7 +22,9 @@ class CalculatorVC: UIViewController {
         resultView,
         billInputView,
         tipInputView,
-        splitInputView
+        splitInputView,
+        // space view with UIVIew() - solve an error related to stackview
+        UIView()
         ])
         stackView.axis = .vertical
         stackView.spacing = 36
@@ -38,7 +40,7 @@ class CalculatorVC: UIViewController {
     
     private func layout() {
         
-        view.backgroundColor = .white
+        view.backgroundColor = ThemeColor.bg
         view.addSubview(vStackView)
         
         // use snapkit to autolayout views
