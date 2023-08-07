@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  tip-calculator
-//
-//  Created by macbookpro on 8/7/23.
-//
+
 
 import UIKit
 
