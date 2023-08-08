@@ -45,11 +45,11 @@ class ResultView: UIView {
     
     private lazy var vStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-        headerLabel,
-        amountPerPersonLabel,
-        horizontalLineView,
-        buildSpacerView(height: 0),
-        hStackView
+            headerLabel,
+            amountPerPersonLabel,
+            horizontalLineView,
+            buildSpacerView(height: 0),
+            hStackView
         ])
         stackView.axis = .vertical
         stackView.spacing = 8
@@ -58,10 +58,10 @@ class ResultView: UIView {
     
     private lazy var hStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-          AmountView(),
-          // add a space between two labels (total bill and total tip)
-          UIView(),
-          AmountView()
+            AmountView(title: "Total bill", textAlignment: .left),
+            // add a space between two labels (total bill and total tip)
+            UIView(),
+            AmountView(title: "Total tip", textAlignment: .right)
         ])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -109,24 +109,5 @@ class ResultView: UIView {
         view.heightAnchor.constraint(equalToConstant: height).isActive = true
         return view
     }
-    
-}
-
-
-class AmountView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func layout() {
-        backgroundColor = .red
-    }
-    
     
 }
