@@ -19,7 +19,8 @@ class SplitInputView: UIView {
     private lazy var decrementButton: UIButton = {
         let button = buildButton(
             text: "-",
-            // problem
+            // layerMinXMinYCorner: top left
+            // layerMinXMaxYCorner: bottom left
             corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner])
         return button
     }()
@@ -27,7 +28,8 @@ class SplitInputView: UIView {
     private lazy var incrementButton: UIButton = {
         let button = buildButton(
             text: "+",
-            // problem
+            // layerMaxXMinYCorner: top right
+            // layerMaxXMaxYCorner: bottom right
             corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
         return button
     }()
