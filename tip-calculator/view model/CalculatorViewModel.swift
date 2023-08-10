@@ -25,6 +25,8 @@ class CalculatorViewModel {
         
     }
     
+    private var cancellables = Set<AnyCancellable>()
+    
     func transform(input: Input) -> Output {
         
         // bussiness logic  and calculation

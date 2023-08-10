@@ -39,25 +39,28 @@ class CalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        
         bind()
     }
     
     // bind viewcontroller to viewmodel
     private func bind() {
+        
         let input = CalculatorViewModel.Input(
-            billPublisher: Just(10).eraseToAnyPublisher(),
+            billPublisher: billInputView.valuePublisher,
             tipPublisher: Just(.tenPercent).eraseToAnyPublisher(),
             splitPublisher: Just(5).eraseToAnyPublisher())
         
         let output = vm.transform(input: input)
         
+        // will delete soon
+        /*
         // observe output received from view model
         // sink subscriber: The sink subscriber allows you to provide closures with your code that will receive output values and completions. From there, you can do anything with the received events.
         output.updateViewPublisher.sink { result in
             print(">>>> \(result)")
             // problem: &
         }.store(in: &cancellables)
+         */
     }
     
     private func layout() {

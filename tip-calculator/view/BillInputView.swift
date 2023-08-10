@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Combine
+// CombineCocoa: like RxCocoa, CombineCocoa basically creates the interface to listen to  events that happening inside ui components
+import CombineCocoa
 
 class BillInputView: UIView {
     
@@ -68,16 +71,37 @@ class BillInputView: UIView {
         return textField
     }()
     
+    // pass textfield's text to view controller
+    //  subject acts as a go-between to enable non-Combine imperative code to send values to Combine subscribers
+    // PassthroughSubject is an observable. for example when we observe from the text field, we can pass that information into the billSubject, can be observed by other classes.
+    // View model is interested to get Double instead of String because we define Double for billPublisher in Inputs
+    private let billSubject: PassthroughSubject<Double, Never> = .init()
+    // billSubject is private so we use this:
+    var valuePublisher: AnyPublisher<Double, Never> {
+        return billSubject.eraseToAnyPublisher()
+    }
+    
+    // for releasing resources
+    private var cancellable = Set<AnyCancellable>()
+    
     init() {
         // .zero: because we use autolayout, so we dont need to care about frame
         super.init(frame: .zero)
         layout()
+        observe()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func observe() {
+        textField.textPublisher.sink { [unowned self] text in
+            print("text: \(text)")
+            
+            billSubject.send(text?.doubleValue ?? 0)
+        }.store(in: &cancellable)
+    }
     
     private func layout() {
         // add multiple  subviews in one line
