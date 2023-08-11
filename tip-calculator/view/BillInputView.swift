@@ -75,6 +75,8 @@ class BillInputView: UIView {
     //  subject acts as a go-between to enable non-Combine imperative code to send values to Combine subscribers
     // PassthroughSubject is an observable. for example when we observe from the text field, we can pass that information into the billSubject, can be observed by other classes.
     // View model is interested to get Double instead of String because we define Double for billPublisher in Inputs
+    // Note*: PassthroughSubject and AnyPublisher both can emit values. a PassthroughSubject can accept values and emit values but AnyPublisher can only emit values (AnyPublisher is read-only).
+    // Note*: why we have this two in combination? our PassthroughSubject is private but we use AnyPublisher to use it from other classes.
     private let billSubject: PassthroughSubject<Double, Never> = .init()
     // billSubject is private so we use this:
     var valuePublisher: AnyPublisher<Double, Never> {
