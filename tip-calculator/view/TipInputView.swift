@@ -111,6 +111,7 @@ class TipInputView: UIView {
         super.init(frame: .zero)
         
         layout()
+        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -173,6 +174,55 @@ class TipInputView: UIView {
         parentViewController?.present(alertController, animated: true)
     }
     
+    private func observe() {
+        // listen to selection of tip buttons. one way to solve this problem is that we can use tipSubject that contains the state of the tip inside this TipInputView. all we need to do is just listen to this. whenerver its being reset, we can call resetView() function.
+        
+        // observe tipSubject
+        tipSubject.sink { [unowned self] tip in
+            resetView()
+            
+            switch tip {
+            case .none:
+                break
+            case .tenPercent:
+                tenPercentTipButton.backgroundColor = ThemeColor.secondary
+            case .fifteenPercent:
+                fifteenPercentTipButton.backgroundColor = ThemeColor.secondary
+            case .twentyPercent:
+                twentyPercentTipButton.backgroundColor = ThemeColor.secondary
+            case .custom(let value):
+                customTipButton.backgroundColor = ThemeColor.secondary
+                let text = NSMutableAttributedString(
+                    string: "$\(value)",
+                    attributes: [
+                        .font: ThemeFont.bold(ofSize: 20)
+                    ])
+                // set first character's "$" font size to 14
+                text.addAttributes(
+                    [.font: ThemeFont.bold(ofSize: 14)],
+                    range: NSMakeRange(0, 1))
+                
+                customTipButton.setAttributedTitle(
+                    text,
+                    for: .normal)
+            }
+        }.store(in: &cancellables)
+    }
+    
+    // reset all the tip buttons in their original state
+    func resetView() {
+        [tenPercentTipButton,
+         fifteenPercentTipButton,
+         twentyPercentTipButton,
+         customTipButton].forEach {
+            $0.backgroundColor = ThemeColor.primary
+        }
+        
+        let text = NSMutableAttributedString(
+            string: "Custom Tip",
+            attributes: [.font: ThemeFont.bold(ofSize: 20)])
+        customTipButton.setAttributedTitle(text, for: .normal)
+    }
     
     private func buildTipButton(tip: Tip) -> UIButton {
         let button = UIButton(type: .custom)
