@@ -31,6 +31,10 @@ class CalculatorViewModel {
         
         // bussiness logic  and calculation
         
+        input.tipPublisher.sink { tip in
+            print("tip: \(tip)")
+        }.store(in: &cancellables)
+        
         let result = Result(
             amountPerPerson: 500,
             totalBill: 1000,

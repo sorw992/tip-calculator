@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import CombineCocoa
 
 class TipInputView: UIView {
     
@@ -19,16 +21,34 @@ class TipInputView: UIView {
     
     private lazy var tenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .tenPercent)
+        
+        // CombineCocoa
+        // flatMap transfers one publisher to another
+        // tapPublisher.flatMap: every time the button is being tapped, (flatMap): i'm gonna transform this tao event into another publisher and Just is that publisher.
+        button.tapPublisher.flatMap {
+            // returns another publisher
+            // Just: A publisher that emits an output to each subscriber just once, and then finishes.
+            Just(Tip.tenPercent) // send this information (Tip.tenPercent) to tipSubject via the value property (\.value).
+        }.assign(to: \.value, on: tipSubject) // \.value is value property of the tipSubject. tipSubject.value
+            .store(in: &cancellables)
         return button
     }()
     
     private lazy var fifteenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .fifteenPercent)
+        button.tapPublisher.flatMap {
+            Just(Tip.fifteenPercent)
+        }.assign(to: \.value, on: tipSubject)
+            .store(in: &cancellables)
         return button
     }()
     
     private lazy var twentyPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .twentyPercent)
+        button.tapPublisher.flatMap {
+            Just(Tip.twentyPercent)
+        }.assign(to: \.value, on: tipSubject)
+            .store(in: &cancellables)
         return button
     }()
     
@@ -68,6 +88,18 @@ class TipInputView: UIView {
         stackView.distribution = .fillEqually
         return stackView
     }()
+    
+    // CurrentValueSubject: subject can receive the data and publish the data.
+    // why didn't we use PassThroughSubject here? because CurrentValueSubject allows us to give it default value while PassThroughObject doesn't let us
+    // we passed it default value .none. at start there is not tip has been set
+    // .none is initial value of our CurrentValueSubject
+    private let tipSubject = CurrentValueSubject<Tip, Never>(.none)
+    var valuePublisher: AnyPublisher<Tip, Never> {
+        return tipSubject.eraseToAnyPublisher()
+    }
+    
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         // .zero: because we use autolayout, so we dont need to care about frame
