@@ -31,6 +31,7 @@
 		524AD5F92A82374A00BA90FA /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5F82A82374A00BA90FA /* LabelFactory.swift */; };
 		524AD5FB2A8245B200BA90FA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5FA2A8245B200BA90FA /* UIView+Extension.swift */; };
 		524AD5FD2A82BF1400BA90FA /* AmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5FC2A82BF1400BA90FA /* AmountView.swift */; };
+		52AF200A2A87859000F8187A /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AF20092A87859000F8187A /* Int+Extension.swift */; };
 		52B9BAEF2A83DBD70050906B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAEE2A83DBD70050906B /* Tip.swift */; };
 		52B9BAF12A83DC300050906B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAF02A83DC300050906B /* HeaderView.swift */; };
 		52BA38C32A84C9A30051B0BF /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BA38C22A84C9A30051B0BF /* CalculatorViewModel.swift */; };
@@ -80,6 +81,7 @@
 		524AD5F82A82374A00BA90FA /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		524AD5FA2A8245B200BA90FA /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		524AD5FC2A82BF1400BA90FA /* AmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountView.swift; sourceTree = "<group>"; };
+		52AF20092A87859000F8187A /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		52B9BAEE2A83DBD70050906B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		52B9BAF02A83DC300050906B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52BA38C22A84C9A30051B0BF /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				524AD5FA2A8245B200BA90FA /* UIView+Extension.swift */,
 				52E485F82A85732C00100B83 /* String+Extension.swift */,
 				52FF9C692A86B5E200A6319F /* UIResponder+Extension.swift */,
+				52AF20092A87859000F8187A /* Int+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				52BA38C52A84DA890051B0BF /* Result.swift in Sources */,
 				52BA38C32A84C9A30051B0BF /* CalculatorViewModel.swift in Sources */,
 				52FF9C6A2A86B5E200A6319F /* UIResponder+Extension.swift in Sources */,
+				52AF200A2A87859000F8187A /* Int+Extension.swift in Sources */,
 				524AD5FD2A82BF1400BA90FA /* AmountView.swift in Sources */,
 				523753F82A813E510085660E /* CalculatorViewController.swift in Sources */,
 				524AD5FB2A8245B200BA90FA /* UIView+Extension.swift in Sources */,

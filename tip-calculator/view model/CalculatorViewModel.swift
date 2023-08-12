@@ -31,8 +31,8 @@ class CalculatorViewModel {
         
         // bussiness logic  and calculation
         
-        input.tipPublisher.sink { tip in
-            print("tip: \(tip)")
+        input.splitPublisher.sink { split in
+            print("the split: \(split)")
         }.store(in: &cancellables)
         
         let result = Result(

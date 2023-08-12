@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Combine
+import CombineCocoa
 
 class SplitInputView: UIView {
     
@@ -22,6 +23,13 @@ class SplitInputView: UIView {
             // layerMinXMinYCorner: top left
             // layerMinXMaxYCorner: bottom left
             corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner])
+        
+        button.tapPublisher.flatMap { [unowned self] _ in
+            // spltInputView's number shoudn't be less than 1
+            Just(splitSubject.value == 1 ? 1 : splitSubject.value - 1)
+        }.assign(to: \.value, on: splitSubject)
+            .store(in: &cancellables)
+        
         return button
     }()
     
@@ -31,6 +39,13 @@ class SplitInputView: UIView {
             // layerMaxXMinYCorner: top right
             // layerMaxXMaxYCorner: bottom right
             corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+        
+        // flatMap transforms all elements into a new publisher
+        button.tapPublisher.flatMap { [unowned self] _ in
+            Just(splitSubject.value + 1)
+        }.assign(to: \.value, on: splitSubject)
+            .store(in: &cancellables)
+        
         return button
     }()
     
@@ -56,13 +71,20 @@ class SplitInputView: UIView {
         return stackView
     }()
     
+    private let splitSubject: CurrentValueSubject<Int, Never> = .init(1)
+    var valuePublisher: AnyPublisher<Int, Never> {
+        // removeDuplicates(): when quantityLabel's number is 1 and user taps negative button, we dont need to emit 1 again. it preventing redundant and repetitious
+        return splitSubject.removeDuplicates().eraseToAnyPublisher()
+    }
     
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         // .zero: because we use autolayout, so we dont need to care about frame
         super.init(frame: .zero)
         
         layout()
+        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -92,6 +114,14 @@ class SplitInputView: UIView {
             make.width.equalTo(68)
         }
 
+    }
+    
+    private func observe() {
+        splitSubject.sink { [weak self] quantity in
+            guard let self = self else {return}
+            quantityLabel.text = quantity.stringValue
+        }.store(in: &cancellables)
+         
     }
     
     private func buildButton(text: String, corners: CACornerMask) -> UIButton {

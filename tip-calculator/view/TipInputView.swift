@@ -98,7 +98,7 @@ class TipInputView: UIView {
     // why didn't we use PassThroughSubject here? because CurrentValueSubject allows us to give it default value while PassThroughObject doesn't let us
     // we passed it default value .none. at start there is not tip has been set
     // .none is initial value of our CurrentValueSubject
-    private let tipSubject = CurrentValueSubject<Tip, Never>(.none)
+    private let tipSubject: CurrentValueSubject<Tip, Never> = .init(.none)
     var valuePublisher: AnyPublisher<Tip, Never> {
         return tipSubject.eraseToAnyPublisher()
     }
