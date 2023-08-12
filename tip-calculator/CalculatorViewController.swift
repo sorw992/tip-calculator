@@ -53,14 +53,16 @@ class CalculatorViewController: UIViewController {
         let output = vm.transform(input: input)
         
         // will delete soon
-        /*
+        
         // observe output received from view model
         // sink subscriber: The sink subscriber allows you to provide closures with your code that will receive output values and completions. From there, you can do anything with the received events.
+        // we can receive any result output from publisher.
         output.updateViewPublisher.sink { result in
             print(">>>> \(result)")
+            
             // problem: &
         }.store(in: &cancellables)
-         */
+         
     }
     
     private func layout() {

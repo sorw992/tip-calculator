@@ -31,19 +31,46 @@ class CalculatorViewModel {
         
         // bussiness logic  and calculation
         
-        input.splitPublisher.sink { split in
-            print("the split: \(split)")
-        }.store(in: &cancellables)
         
-        let result = Result(
-            amountPerPerson: 500,
-            totalBill: 1000,
-            totalTip: 50.0)
         
+        // CombineLates: is a functiont that we use if any of the publishers (billPublisher, tipPublisher and splitPublisher publishers change)
+        // CombineLates3: since we observing three publishers (billPublisher, tipPublisher and splitPublisher). if you have 4 publishers you can use CombineLatest4().
+        // if any of this publishers emit a value, we want to recompute everything
+        // flatMap transforms updateViewPublisher into the type of AnyPublisher<Result, Never>
+        let updateViewPublisher = Publishers.CombineLatest3(
+            input.billPublisher,
+            input.tipPublisher,
+            input.splitPublisher).flatMap { [unowned self] (bill, tip, split) in
+                
+                let totalTip = getTipAmount(bill: bill, tip: tip)
+                let totalBill = bill + totalTip
+                let amountPerPerson = totalBill / Double(split)
+                
+                let result = Result(
+                    amountPerPerson: amountPerPerson,
+                    totalBill: totalBill,
+                    totalTip: amountPerPerson)
+                return Just(result)
+            }.eraseToAnyPublisher()
+    
         // just: to send a publisher out
-        return Output(updateViewPublisher: Just(result).eraseToAnyPublisher())
+        return Output(updateViewPublisher: updateViewPublisher)
         
     }
     
-     
+    func getTipAmount(bill: Double, tip: Tip) -> Double {
+        switch tip {
+        case .none:
+            return 0
+        case .tenPercent:
+            return bill * 0.1
+        case .fifteenPercent:
+            return bill * 0.15
+        case .twentyPercent:
+            return bill * 0.2
+        case .custom(let value):
+            return Double(value)
+        }
+    }
+    
 }
