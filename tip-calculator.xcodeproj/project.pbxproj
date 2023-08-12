@@ -31,6 +31,7 @@
 		524AD5F92A82374A00BA90FA /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5F82A82374A00BA90FA /* LabelFactory.swift */; };
 		524AD5FB2A8245B200BA90FA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5FA2A8245B200BA90FA /* UIView+Extension.swift */; };
 		524AD5FD2A82BF1400BA90FA /* AmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5FC2A82BF1400BA90FA /* AmountView.swift */; };
+		5262A9982A881CDA00058981 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5262A9972A881CDA00058981 /* Double+Extension.swift */; };
 		52AF200A2A87859000F8187A /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AF20092A87859000F8187A /* Int+Extension.swift */; };
 		52B9BAEF2A83DBD70050906B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAEE2A83DBD70050906B /* Tip.swift */; };
 		52B9BAF12A83DC300050906B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAF02A83DC300050906B /* HeaderView.swift */; };
@@ -81,6 +82,7 @@
 		524AD5F82A82374A00BA90FA /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		524AD5FA2A8245B200BA90FA /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		524AD5FC2A82BF1400BA90FA /* AmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountView.swift; sourceTree = "<group>"; };
+		5262A9972A881CDA00058981 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		52AF20092A87859000F8187A /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		52B9BAEE2A83DBD70050906B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		52B9BAF02A83DC300050906B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				52E485F82A85732C00100B83 /* String+Extension.swift */,
 				52FF9C692A86B5E200A6319F /* UIResponder+Extension.swift */,
 				52AF20092A87859000F8187A /* Int+Extension.swift */,
+				5262A9972A881CDA00058981 /* Double+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				52E485F92A85732C00100B83 /* String+Extension.swift in Sources */,
 				523754402A817A2D0085660E /* ThemeFont.swift in Sources */,
 				523753F62A813E510085660E /* SceneDelegate.swift in Sources */,
+				5262A9982A881CDA00058981 /* Double+Extension.swift in Sources */,
 				524AD5F92A82374A00BA90FA /* LabelFactory.swift in Sources */,
 				52B9BAEF2A83DBD70050906B /* Tip.swift in Sources */,
 				5237543B2A816F060085660E /* SplitInputView.swift in Sources */,

@@ -49,7 +49,7 @@ class CalculatorViewModel {
                 let result = Result(
                     amountPerPerson: amountPerPerson,
                     totalBill: totalBill,
-                    totalTip: amountPerPerson)
+                    totalTip: totalTip)
                 return Just(result)
             }.eraseToAnyPublisher()
     
