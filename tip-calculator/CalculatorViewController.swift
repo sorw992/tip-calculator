@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Combine
+import CombineCocoa
 
 class CalculatorViewController: UIViewController {
     
@@ -19,13 +20,13 @@ class CalculatorViewController: UIViewController {
     
     private lazy var vStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-        logoView,
-        resultView,
-        billInputView,
-        tipInputView,
-        splitInputView,
-        // space view with UIVIew() - solve an error related to stackview
-        UIView()
+            logoView,
+            resultView,
+            billInputView,
+            tipInputView,
+            splitInputView,
+            // space view with UIVIew() - solve an error related to stackview
+            UIView()
         ])
         stackView.axis = .vertical
         stackView.spacing = 36
@@ -35,11 +36,40 @@ class CalculatorViewController: UIViewController {
     
     private let vm = CalculatorViewModel()
     private var cancellables = Set<AnyCancellable>()
-
+    
+    // add gesture recognizer to view (to sismiss keyboard when user taps outside the keyboard)
+    // AnyPublisher is a read-only publisher and we set Void, because we dont need to pass any value. when the user taps outside the keyboard.
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        view.addGestureRecognizer(tapGesture)
+        // flatMap transforms AnyPublisher<UITapGestureRecognizer, Never> to AnyPublisher<Void, Never>
+        return tapGesture.tapPublisher.flatMap { ـ in // returns UITapGestureRecognizer and we dont need it "_"
+            // transform UITapGestureRecognizer to Void
+            // () represents the Void
+            Just(())
+        }.eraseToAnyPublisher()
+    }()
+    
+    // when user taps twice on logo on top, all the form fields is resetting
+    // need to double tap on this two to qualify this as logoViewTapPublisher
+    private lazy var logoViewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        tapGesture.numberOfTapsRequired = 2
+        
+        view.addGestureRecognizer(tapGesture)
+        // flatMap transforms AnyPublisher<UITapGestureRecognizer, Never> to AnyPublisher<Void, Never>
+        return tapGesture.tapPublisher.flatMap { ـ in // returns UITapGestureRecognizer and we dont need it "_"
+            // transform UITapGestureRecognizer to Void
+            // () represents the Void
+            Just(())
+        }.eraseToAnyPublisher()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         bind()
+        observe()
     }
     
     // bind viewcontroller to viewmodel
@@ -62,7 +92,17 @@ class CalculatorViewController: UIViewController {
             resultView.configure(result: result)
             // problem: &
         }.store(in: &cancellables)
-         
+    }
+    
+    func observe() {
+        viewTapPublisher.sink { [unowned self] value in
+            // dismiss keyboard
+            view.endEditing(true)
+        }.store(in: &cancellables)
+        
+        logoViewTapPublisher.sink { _ in
+            print("logo view is tapped")
+        }.store(in: &cancellables)
     }
     
     private func layout() {
@@ -106,5 +146,5 @@ class CalculatorViewController: UIViewController {
         }
         
     }
-
+    
 }
