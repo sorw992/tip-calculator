@@ -17,12 +17,14 @@ class CalculatorViewModel {
         let billPublisher: AnyPublisher<Double, Never>
         let tipPublisher: AnyPublisher<Tip, Never>
         let splitPublisher: AnyPublisher<Int, Never>
+        let logoViewTapPublisher: AnyPublisher<Void, Never>
     }
     
     struct Output {
         // send values to  view controller to send to the result view's (total p/person - total bill - totalbill) labels
         let updateViewPublisher: AnyPublisher<Result, Never>
         
+        let resetCalculatorPublisher: AnyPublisher<Void, Never>
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -52,9 +54,11 @@ class CalculatorViewModel {
                     totalTip: totalTip)
                 return Just(result)
             }.eraseToAnyPublisher()
+        
+        let resetCalculatorPublisher = input.logoViewTapPublisher
     
         // just: to send a publisher out
-        return Output(updateViewPublisher: updateViewPublisher)
+        return Output(updateViewPublisher: updateViewPublisher, resetCalculatorPublisher: resetCalculatorPublisher)
         
     }
     

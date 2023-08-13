@@ -78,7 +78,7 @@ class CalculatorViewController: UIViewController {
         let input = CalculatorViewModel.Input(
             billPublisher: billInputView.valuePublisher,
             tipPublisher: tipInputView.valuePublisher,
-            splitPublisher: splitInputView.valuePublisher)
+            splitPublisher: splitInputView.valuePublisher, logoViewTapPublisher: logoViewTapPublisher)
         
         let output = vm.transform(input: input)
         
@@ -92,16 +92,18 @@ class CalculatorViewController: UIViewController {
             resultView.configure(result: result)
             // problem: &
         }.store(in: &cancellables)
+        
+        output.resetCalculatorPublisher.sink { _ in
+            print("hey, reset the form please")
+        }.store(in: &cancellables)
+
     }
     
     func observe() {
+        // we don't need view model to implement business logic. if you want you can bring this to view model and output this to handle keyboard dismiss here.
         viewTapPublisher.sink { [unowned self] value in
             // dismiss keyboard
             view.endEditing(true)
-        }.store(in: &cancellables)
-        
-        logoViewTapPublisher.sink { _ in
-            print("logo view is tapped")
         }.store(in: &cancellables)
     }
     
