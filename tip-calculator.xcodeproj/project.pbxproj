@@ -33,10 +33,12 @@
 		524AD5FD2A82BF1400BA90FA /* AmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AD5FC2A82BF1400BA90FA /* AmountView.swift */; };
 		5262A9982A881CDA00058981 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5262A9972A881CDA00058981 /* Double+Extension.swift */; };
 		52AF200A2A87859000F8187A /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AF20092A87859000F8187A /* Int+Extension.swift */; };
+		52B5A9372A8953FA00B7037A /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 52B5A9362A8953FA00B7037A /* click.m4a */; };
 		52B9BAEF2A83DBD70050906B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAEE2A83DBD70050906B /* Tip.swift */; };
 		52B9BAF12A83DC300050906B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9BAF02A83DC300050906B /* HeaderView.swift */; };
 		52BA38C32A84C9A30051B0BF /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BA38C22A84C9A30051B0BF /* CalculatorViewModel.swift */; };
 		52BA38C52A84DA890051B0BF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BA38C42A84DA890051B0BF /* Result.swift */; };
+		52D759482A8C139300100656 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D759472A8C139300100656 /* AudioPlayerService.swift */; };
 		52E485F92A85732C00100B83 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E485F82A85732C00100B83 /* String+Extension.swift */; };
 		52FF9C6A2A86B5E200A6319F /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FF9C692A86B5E200A6319F /* UIResponder+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -84,10 +86,12 @@
 		524AD5FC2A82BF1400BA90FA /* AmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountView.swift; sourceTree = "<group>"; };
 		5262A9972A881CDA00058981 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		52AF20092A87859000F8187A /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		52B5A9362A8953FA00B7037A /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
 		52B9BAEE2A83DBD70050906B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		52B9BAF02A83DC300050906B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52BA38C22A84C9A30051B0BF /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
 		52BA38C42A84DA890051B0BF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		52D759472A8C139300100656 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
 		52E485F82A85732C00100B83 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		52FF9C692A86B5E200A6319F /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +150,8 @@
 		523753F22A813E510085660E /* tip-calculator */ = {
 			isa = PBXGroup;
 			children = (
+				52D759462A8C137000100656 /* service */,
+				52B5A9352A8953DA00B7037A /* resource */,
 				52BA38C12A84C9760051B0BF /* view model */,
 				52B9BAED2A83DBCB0050906B /* model */,
 				524AD5F72A82373700BA90FA /* factory */,
@@ -230,6 +236,14 @@
 			path = factory;
 			sourceTree = "<group>";
 		};
+		52B5A9352A8953DA00B7037A /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				52B5A9362A8953FA00B7037A /* click.m4a */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		52B9BAED2A83DBCB0050906B /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +259,14 @@
 				52BA38C22A84C9A30051B0BF /* CalculatorViewModel.swift */,
 			);
 			path = "view model";
+			sourceTree = "<group>";
+		};
+		52D759462A8C137000100656 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				52D759472A8C139300100656 /* AudioPlayerService.swift */,
+			);
+			path = service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +391,7 @@
 			files = (
 				523754002A813E540085660E /* LaunchScreen.storyboard in Resources */,
 				523753FD2A813E540085660E /* Assets.xcassets in Resources */,
+				52B5A9372A8953FA00B7037A /* click.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +428,7 @@
 				523754432A817AB20085660E /* UIColor+Extension.swift in Sources */,
 				523754372A816EB30085660E /* BillInputView.swift in Sources */,
 				523754352A816E8E0085660E /* ResultView.swift in Sources */,
+				52D759482A8C139300100656 /* AudioPlayerService.swift in Sources */,
 				523753F42A813E510085660E /* AppDelegate.swift in Sources */,
 				52E485F92A85732C00100B83 /* String+Extension.swift in Sources */,
 				523754402A817A2D0085660E /* ThemeFont.swift in Sources */,

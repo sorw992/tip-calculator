@@ -29,6 +29,15 @@ class CalculatorViewModel {
     
     private var cancellables = Set<AnyCancellable>()
     
+    //audio player is our dependency
+    private let audioPlayerService: AudioPlayerService
+    
+    // dependency injection: whenever we initialize the view model, we have to pass in the services that we are depending on.
+    init(audioPlayerService: AudioPlayerService = DefaultAudioPlayer()) {
+        self.audioPlayerService = audioPlayerService
+    }
+    
+    
     func transform(input: Input) -> Output {
         
         // bussiness logic  and calculation
@@ -55,7 +64,16 @@ class CalculatorViewModel {
                 return Just(result)
             }.eraseToAnyPublisher()
         
-        let resetCalculatorPublisher = input.logoViewTapPublisher
+       
+        let resetCalculatorPublisher = input
+            .logoViewTapPublisher
+             .handleEvents(receiveOutput: { [unowned self] in
+            //every time the logoViewTapPublisher is fired. in receiveOutput, playSound() function will call.
+            audioPlayerService.playSound()
+        }).flatMap {
+            // we used flatMap to return correct signature (AnyPublisher<Void, Never>
+            return Just(()) // logoViewTapPublisher returns void, we can use "Just($0)". both is equal (Just(()) = Just($0))
+        }.eraseToAnyPublisher()
     
         // just: to send a publisher out
         return Output(updateViewPublisher: updateViewPublisher, resetCalculatorPublisher: resetCalculatorPublisher)
