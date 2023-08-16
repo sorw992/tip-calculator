@@ -56,7 +56,7 @@ class CalculatorViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.numberOfTapsRequired = 2
         
-        view.addGestureRecognizer(tapGesture)
+        logoView.addGestureRecognizer(tapGesture)
         // flatMap transforms AnyPublisher<UITapGestureRecognizer, Never> to AnyPublisher<Void, Never>
         return tapGesture.tapPublisher.flatMap { ـ in // returns UITapGestureRecognizer and we dont need it "_"
             // transform UITapGestureRecognizer to Void
@@ -93,8 +93,27 @@ class CalculatorViewController: UIViewController {
             // problem: &
         }.store(in: &cancellables)
         
-        output.resetCalculatorPublisher.sink { _ in
-            print("hey, reset the form please")
+        output.resetCalculatorPublisher.sink { [unowned self] _ in
+            //print("hey, reset the form please")
+            billInputView.reset()
+            tipInputView.reset()
+            splitInputView.reset()
+            
+            // animate log view when tapped
+            UIView.animate(
+                withDuration: 1,
+                delay: 0,
+                // problem
+                usingSpringWithDamping: 5.0,
+                initialSpringVelocity: 0.5,
+                options: .curveEaseInOut) {
+                    self.logoView.transform = .init(scaleX: 1.5, y: 1.5)
+                } completion: { _ in
+                    UIView.animate(withDuration: 0.1) {
+                        self.logoView.transform = .identity
+                    }
+                }
+
         }.store(in: &cancellables)
 
     }

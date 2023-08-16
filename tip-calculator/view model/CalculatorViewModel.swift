@@ -73,6 +73,7 @@ class CalculatorViewModel {
         }).flatMap {
             // we used flatMap to return correct signature (AnyPublisher<Void, Never>
             return Just(()) // logoViewTapPublisher returns void, we can use "Just($0)". both is equal (Just(()) = Just($0))
+            // return Just($0)
         }.eraseToAnyPublisher()
     
         // just: to send a publisher out
