@@ -2,7 +2,7 @@
 //  tip_calculatorUITests.swift
 //  tip-calculatorUITests
 //
-//  Created by macbookpro on 8/7/23.
+//  Created by soroush on 8/7/23.
 //
 
 import XCTest
