@@ -18,8 +18,11 @@ final class tip_calculatorUITestsLaunchTests: XCTestCase {
     
     private let logoViewTapSubject = PassthroughSubject<Void, Never>()
     
+    private var audioPlayerService: MockAudioPlayerService!
+    
     override func setUp() {
-        sut = .init()
+        audioPlayerService = .init()
+        sut = .init(audioPlayerService: audioPlayerService)
         cancellables = .init()
         super.setUp()
     }
@@ -84,10 +87,8 @@ final class tip_calculatorUITestsLaunchTests: XCTestCase {
             tip: tip,
             split: split)
         
-        
         let output = sut.transform(input: input)
         
-       
         output.updateViewPublisher.sink { result in
             XCTAssertEqual(result.amountPerPerson, 100.25)
             XCTAssertEqual(result.totalBill, 401)
@@ -116,6 +117,27 @@ final class tip_calculatorUITestsLaunchTests: XCTestCase {
         }.store(in: &cancellables)
     }
     
+    func testSoundPlayedAndCalculatorResetOnLogoViewTop() {
+        // given
+        let input = buildInput(bill: 100, tip: .tenPercent, split: 2)
+        let output = sut.transform(input: input)
+        
+        let expectation1 = XCTestExpectation(description: "reset calculator called")
+        
+        let expectation2 = audioPlayerService.expectation
+        
+        // then - what we except when tapping on logo view
+        // Note: when user taps on logo, the publisher will be fired
+        output.resetCalculatorPublisher.sink { _ in
+            expectation1.fulfill()
+        }.store(in: &cancellables)
+        
+        // when - because of asynchronous code came to end
+        logoViewTapSubject.send( )
+        
+        wait(for: [expectation1, expectation2], timeout: 1.0)
+        
+    }
     
     private func buildInput(bill: Double, tip: Tip, split: Int) -> CalculatorViewModel.Input {
         return .init(
@@ -126,3 +148,19 @@ final class tip_calculatorUITestsLaunchTests: XCTestCase {
     }
     
 }
+
+
+// create a mock of audio player
+class MockAudioPlayerService: AudioPlayerService {
+    
+    var expectation = XCTestExpectation(description: "playSound is called")
+    
+    func playSound() {
+        expectation.fulfill()
+    }
+    
+}
+
+
+
+
